@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { MessageCircle, Send, Mail, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const TELEGRAM_LINK = "https://t.me/ugslab";
+const TELEGRAM_LINK = "https://t.me/+P5Vt_RUS1802ZmJi";
 const WHATSAPP_LINK = "https://wa.me/message/ugslab";
 
 export default function ContactsSection() {
