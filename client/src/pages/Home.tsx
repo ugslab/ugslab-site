@@ -3,6 +3,7 @@ import HeroSection from "@/components/HeroSection";
 import CatalogSection from "@/components/CatalogSection";
 import LabBanner from "@/components/LabBanner";
 import AboutSection from "@/components/AboutSection";
+import ConsultationSection from "@/components/ConsultationSection";
 import ContactsSection from "@/components/ContactsSection";
 import Footer from "@/components/Footer";
 
@@ -15,6 +16,7 @@ export default function Home() {
         <CatalogSection />
         <LabBanner />
         <AboutSection />
+        <ConsultationSection />
         <ContactsSection />
       </main>
       <Footer />
