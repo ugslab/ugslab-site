@@ -122,7 +122,7 @@ export default function ConsultationSection() {
             <div className="flex flex-col sm:flex-row lg:flex-col gap-3 lg:min-w-[220px]">
               {/* Telegram */}
               <a
-                href="https://t.me/+P5Vt_RUS1802ZmJi"
+                href="https://t.me/ugslab"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-3 px-6 py-3.5 rounded-xl font-semibold text-white bg-[#229ED9] hover:bg-[#1a8ec4] transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5"
