@@ -1,16 +1,24 @@
 /**
  * Catalog Section
- * Design: «Научная Элегантность» — секция с молекулярным паттерном на фоне,
- * нумерация секции, сетка карточек продукции.
+ * Design: «Научная Элегантность» — секция с категориями-фильтрами,
+ * группировка товаров по категориям, сетка карточек.
  */
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import ProductCard from "./ProductCard";
-import { products } from "@/lib/products";
+import { products, categories } from "@/lib/products";
 
 const VIALS_IMG =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663487132888/e8adGwpKRAAUmjUuR8zksC/peptide-vials-cGKfMHdTvkyBswcVygbWnD.webp";
 
 export default function CatalogSection() {
+  const [activeCategory, setActiveCategory] = useState<string>("all");
+
+  const filteredProducts =
+    activeCategory === "all"
+      ? products
+      : products.filter((p) => p.category === activeCategory);
+
   return (
     <section id="catalog" className="relative py-24 sm:py-32">
       {/* Subtle background */}
@@ -18,7 +26,7 @@ export default function CatalogSection() {
 
       <div className="container relative z-10">
         {/* Section header */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
           <div>
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -48,7 +56,7 @@ export default function CatalogSection() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-base sm:text-lg text-muted-foreground mt-3 max-w-xl"
             >
-              Высокоочищенные пептиды для исследовательских целей.
+              Полный ассортимент высокоочищенных пептидов для исследовательских целей.
               Каждая партия проходит строгий контроль качества.
             </motion.p>
           </div>
@@ -69,12 +77,73 @@ export default function CatalogSection() {
           </motion.div>
         </div>
 
+        {/* Category filters */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.25 }}
+          className="mb-12"
+        >
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => setActiveCategory("all")}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                activeCategory === "all"
+                  ? "bg-primary text-white shadow-md shadow-primary/25"
+                  : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
+              }`}
+            >
+              Все товары
+              <span className="ml-1.5 text-xs opacity-70">({products.length})</span>
+            </button>
+            {categories.map((cat) => {
+              const count = products.filter((p) => p.category === cat.id).length;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    activeCategory === cat.id
+                      ? "bg-primary text-white shadow-md shadow-primary/25"
+                      : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
+                  }`}
+                >
+                  {cat.name}
+                  <span className="ml-1.5 text-xs opacity-70">({count})</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Category description */}
+          {activeCategory !== "all" && (
+            <motion.p
+              key={activeCategory}
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-sm text-muted-foreground mt-3 pl-1"
+            >
+              {categories.find((c) => c.id === activeCategory)?.description}
+            </motion.p>
+          )}
+        </motion.div>
+
         {/* Product grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((product, i) => (
-            <ProductCard key={product.id} product={product} index={i} />
-          ))}
-        </div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeCategory}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {filteredProducts.map((product, i) => (
+              <ProductCard key={product.id} product={product} index={i} />
+            ))}
+          </motion.div>
+        </AnimatePresence>
 
         {/* Disclaimer */}
         <motion.p

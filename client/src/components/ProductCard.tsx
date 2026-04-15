@@ -6,7 +6,7 @@
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import type { Product } from "@/lib/products";
+import { type Product, categories } from "@/lib/products";
 
 interface ProductCardProps {
   product: Product;
@@ -29,6 +29,13 @@ export default function ProductCard({ product, index }: ProductCardProps) {
       <div className="h-1 bg-gradient-to-r from-primary via-primary/80 to-primary/40" />
 
       <div className="p-6 sm:p-7">
+        {/* Category badge */}
+        <div className="mb-3">
+          <span className="text-[10px] font-semibold tracking-wider uppercase text-primary/70 bg-primary/8 px-2 py-0.5 rounded">
+            {categories.find((c) => c.id === product.category)?.name ?? product.category}
+          </span>
+        </div>
+
         {/* Header */}
         <div className="flex items-start justify-between mb-4">
           <div>
