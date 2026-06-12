@@ -1,27 +1,21 @@
-/**
- * Header / Navigation
- * Design: «Научная Элегантность» — фиксированная навигация.
- * На hero (не скролл): белый текст на прозрачном фоне.
- * При скролле: белый фон, тёмный текст.
- */
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Send, Menu, X } from "lucide-react";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navItems = [
-    { label: "Главная", href: "#hero" },
+    { label: "Почему Китай", href: "#why-china" },
+    { label: "Как мы работаем", href: "#how-we-work" },
     { label: "Каталог", href: "#catalog" },
     { label: "О компании", href: "#about" },
-    { label: "Консультация", href: "#consultation" },
     { label: "Контакты", href: "#contacts" },
   ];
 
@@ -35,95 +29,73 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-[0_1px_0_0_oklch(0.91_0.008_290)]"
+          ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-border"
           : "bg-transparent"
       }`}
     >
-      <div className="container flex items-center justify-between h-16 md:h-20">
-        {/* Logo */}
-        <a
-          href="#hero"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollTo("#hero");
-          }}
-          className="flex items-center gap-1 group"
-        >
-          <span
-            className={`text-xl md:text-2xl font-heading font-extrabold tracking-tight transition-colors duration-300 ${
-              scrolled ? "text-foreground" : "text-white"
-            }`}
-          >
-            UGS
+      <div className="container flex items-center justify-between h-16 lg:h-18">
+        <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="flex items-center gap-1">
+          <span className={`text-xl font-bold tracking-tight transition-colors duration-300 ${scrolled ? 'text-foreground' : 'text-white'}`} style={{ fontFamily: "'Manrope', sans-serif" }}>
+            UGS <span className="font-light">LAB</span>
           </span>
-          <span
-            className={`text-xl md:text-2xl font-heading font-normal tracking-tight transition-colors duration-300 ${
-              scrolled ? "text-foreground/70" : "text-white/70"
-            }`}
-          >
-            LAB
-          </span>
-          <span className="block w-6 h-[3px] bg-primary rounded-full ml-1 group-hover:w-8 transition-all duration-300" />
+          <span className="block w-5 h-[2px] bg-primary rounded-full ml-1.5" />
         </a>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-8">
           {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              onClick={(e) => {
-                e.preventDefault();
-                scrollTo(item.href);
-              }}
-              className={`text-sm font-medium transition-colors duration-200 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full ${
-                scrolled
-                  ? "text-foreground/60 hover:text-primary"
-                  : "text-white/70 hover:text-white"
+              onClick={(e) => { e.preventDefault(); scrollTo(item.href); }}
+              className={`text-sm font-medium transition-colors duration-300 hover:text-primary ${
+                scrolled ? "text-foreground/70" : "text-white/80"
               }`}
             >
               {item.label}
             </a>
           ))}
+          <a
+            href="https://t.me/ugslab"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-md hover:bg-primary/90 transition-colors"
+          >
+            <Send className="w-3.5 h-3.5" />
+            Telegram
+          </a>
         </nav>
 
-        {/* Mobile Toggle */}
         <button
-          className={`md:hidden p-2 transition-colors ${
-            scrolled ? "text-foreground/70 hover:text-primary" : "text-white/70 hover:text-white"
-          }`}
           onClick={() => setMobileOpen(!mobileOpen)}
+          className={`lg:hidden p-2 transition-colors ${scrolled ? 'text-foreground' : 'text-white'}`}
           aria-label="Меню"
         >
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
 
-      {/* Mobile Nav */}
       {mobileOpen && (
-        <div className={`md:hidden backdrop-blur-lg border-t ${
-          scrolled
-            ? "bg-white/98 border-border"
-            : "bg-[#0a0a1a]/95 border-white/10"
-        }`}>
+        <div className="lg:hidden bg-white border-t border-border shadow-lg">
           <nav className="container py-4 flex flex-col gap-3">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollTo(item.href);
-                }}
-                className={`text-base font-medium py-2 border-b last:border-0 transition-colors ${
-                  scrolled
-                    ? "text-foreground/70 hover:text-primary border-border/50"
-                    : "text-white/70 hover:text-white border-white/10"
-                }`}
+                onClick={(e) => { e.preventDefault(); scrollTo(item.href); }}
+                className="text-sm font-medium text-foreground/70 hover:text-primary py-2 border-b border-border/50 last:border-0"
               >
                 {item.label}
               </a>
             ))}
+            <a
+              href="https://t.me/ugslab"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary text-primary-foreground text-sm font-medium rounded-md mt-2"
+            >
+              <Send className="w-3.5 h-3.5" />
+              Написать в Telegram
+            </a>
           </nav>
         </div>
       )}

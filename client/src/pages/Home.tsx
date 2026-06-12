@@ -1,9 +1,12 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
+import WhyChinaSection from "@/components/WhyChinaSection";
+import HowWeWorkSection from "@/components/HowWeWorkSection";
+import PackagingSection from "@/components/PackagingSection";
 import CatalogSection from "@/components/CatalogSection";
-import LabBanner from "@/components/LabBanner";
+import HowToOrderSection from "@/components/HowToOrderSection";
 import AboutSection from "@/components/AboutSection";
-import ConsultationSection from "@/components/ConsultationSection";
+import ProductionSection from "@/components/ProductionSection";
 import ContactsSection from "@/components/ContactsSection";
 import Footer from "@/components/Footer";
 
@@ -13,10 +16,13 @@ export default function Home() {
       <Header />
       <main>
         <HeroSection />
+        <WhyChinaSection />
+        <HowWeWorkSection />
+        <PackagingSection />
         <CatalogSection />
-        <LabBanner />
+        <HowToOrderSection />
         <AboutSection />
-        <ConsultationSection />
+        <ProductionSection />
         <ContactsSection />
       </main>
       <Footer />

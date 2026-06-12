@@ -1,15 +1,7 @@
-/**
- * Catalog Section
- * Design: «Научная Элегантность» — секция с категориями-фильтрами,
- * группировка товаров по категориям, сетка карточек.
- */
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ProductCard from "./ProductCard";
 import { products, categories } from "@/lib/products";
-
-const VIALS_IMG =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663487132888/e8adGwpKRAAUmjUuR8zksC/peptide-vials-cGKfMHdTvkyBswcVygbWnD.webp";
 
 export default function CatalogSection() {
   const [activeCategory, setActiveCategory] = useState<string>("all");
@@ -17,119 +9,72 @@ export default function CatalogSection() {
   const filteredProducts =
     activeCategory === "all"
       ? products
-      : products.filter((p) => p.category === activeCategory);
+      : products.filter((p) => p.categoryId === activeCategory);
+
+  const activeInfo = categories.find((c) => c.id === activeCategory);
 
   return (
-    <section id="catalog" className="relative py-24 sm:py-32">
-      {/* Subtle background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/30 to-background" />
-
-      <div className="container relative z-10">
+    <section id="catalog" className="py-20 lg:py-28 bg-secondary/30">
+      <div className="container">
         {/* Section header */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
-          <div>
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="flex items-center gap-3 mb-4"
-            >
-              <span className="text-6xl sm:text-7xl font-heading font-extrabold text-primary/10 leading-none select-none">
-                01
-              </span>
-              <div className="w-12 h-px bg-primary/40" />
-            </motion.div>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-foreground tracking-tight"
-            >
-              Каталог продукции
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-base sm:text-lg text-muted-foreground mt-3 max-w-xl"
-            >
-              Полный ассортимент высокоочищенных пептидов для исследовательских целей.
-              Каждая партия проходит строгий контроль качества.
-            </motion.p>
-          </div>
-
-          {/* Decorative image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="hidden lg:block w-64 h-36 rounded-lg overflow-hidden shadow-lg"
-          >
-            <img
-              src={VIALS_IMG}
-              alt="Пептидные флаконы"
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-        </div>
-
-        {/* Category filters */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.25 }}
-          className="mb-12"
+          transition={{ duration: 0.5 }}
+          className="mb-10"
         >
-          <div className="flex flex-wrap gap-2">
-            <button
-              onClick={() => setActiveCategory("all")}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                activeCategory === "all"
-                  ? "bg-primary text-white shadow-md shadow-primary/25"
-                  : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
-              }`}
-            >
-              Все товары
-              <span className="ml-1.5 text-xs opacity-70">({products.length})</span>
-            </button>
-            {categories.map((cat) => {
-              const count = products.filter((p) => p.category === cat.id).length;
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => setActiveCategory(cat.id)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    activeCategory === cat.id
-                      ? "bg-primary text-white shadow-md shadow-primary/25"
-                      : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
-                  }`}
-                >
-                  {cat.name}
-                  <span className="ml-1.5 text-xs opacity-70">({count})</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Category description */}
-          {activeCategory !== "all" && (
-            <motion.p
-              key={activeCategory}
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-sm text-muted-foreground mt-3 pl-1"
-            >
-              {categories.find((c) => c.id === activeCategory)?.description}
-            </motion.p>
-          )}
+          <span className="text-xs font-medium text-primary tracking-wide uppercase mb-3 block">
+            Каталог
+          </span>
+          <h2
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-4"
+            style={{ fontFamily: "'Manrope', sans-serif" }}
+          >
+            Каталог продукции
+          </h2>
+          <p className="text-muted-foreground max-w-2xl leading-relaxed">
+            {products.length} позиций в {categories.length - 1} категориях. Все молекулы — Research Use Only.
+          </p>
         </motion.div>
 
-        {/* Product grid */}
+        {/* Category filters */}
+        <div className="mb-8 overflow-x-auto pb-2 -mx-4 px-4">
+          <div className="flex gap-2 min-w-max">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveCategory(cat.id)}
+                className={`px-3 py-1.5 text-xs font-medium rounded-md border transition-all whitespace-nowrap ${
+                  activeCategory === cat.id
+                    ? "bg-primary text-primary-foreground border-primary"
+                    : "bg-card text-muted-foreground border-border hover:border-primary/30 hover:text-foreground"
+                }`}
+              >
+                {cat.shortName}
+                {cat.id !== "all" && (
+                  <span className="ml-1.5 opacity-60">
+                    {products.filter((p) => p.categoryId === cat.id).length}
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Category description */}
+        {activeInfo && activeInfo.description && (
+          <motion.p
+            key={activeCategory}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-sm text-muted-foreground mb-8 max-w-2xl"
+          >
+            {activeInfo.description}
+          </motion.p>
+        )}
+
+        {/* Products grid */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeCategory}
@@ -137,7 +82,7 @@ export default function CatalogSection() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
           >
             {filteredProducts.map((product, i) => (
               <ProductCard key={product.id} product={product} index={i} />
@@ -145,17 +90,31 @@ export default function CatalogSection() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Disclaimer */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="text-xs text-muted-foreground/60 mt-10 text-center max-w-2xl mx-auto leading-relaxed"
+          transition={{ duration: 0.5 }}
+          className="mt-12 text-center"
         >
-          Все продукты предназначены исключительно для исследовательских целей (Research use only).
-          Не предназначены для применения на людях или животных.
-        </motion.p>
+          <p className="text-sm text-muted-foreground mb-4">
+            Не нашли нужную молекулу? Напишите — подберём или привезём под заказ.
+          </p>
+          <a
+            href="https://t.me/ugslab"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium border border-primary text-primary rounded-md hover:bg-primary hover:text-primary-foreground transition-colors"
+          >
+            Запросить в Telegram
+          </a>
+        </motion.div>
+
+        {/* Disclaimer */}
+        <p className="text-[10px] text-muted-foreground/50 mt-8 text-center max-w-xl mx-auto">
+          Все продукты предназначены исключительно для исследовательских целей. Не предназначены для применения на людях или животных.
+        </p>
       </div>
     </section>
   );
