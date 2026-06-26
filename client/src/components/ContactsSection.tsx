@@ -24,7 +24,7 @@ export default function ContactsSection() {
             </p>
 
             <a
-              href="https://t.me/ugslab"
+              href="https://t.me/ugslabstore_bot"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-8 py-4 bg-indigo-600 text-white font-medium rounded-xl hover:bg-indigo-700 transition-colors text-base"
@@ -34,7 +34,7 @@ export default function ContactsSection() {
             </a>
 
             <p className="text-xs text-gray-400 mt-6">
-              t.me/ugslab
+              t.me/ugslabstore_bot
             </p>
           </motion.div>
         </div>

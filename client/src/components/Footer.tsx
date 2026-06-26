@@ -15,12 +15,12 @@ export default function Footer() {
             <span className="block w-5 h-[2px] bg-indigo-500 rounded-full mt-1.5" />
           </div>
           <a
-            href="https://t.me/ugslab"
+            href="https://t.me/ugslabstore_bot"
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm text-gray-400 hover:text-indigo-400 transition-colors"
           >
-            t.me/ugslab
+            t.me/ugslabstore_bot
           </a>
         </div>
 

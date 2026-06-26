@@ -89,7 +89,7 @@ export default function Header() {
 
             {/* Telegram Button */}
             <a
-              href="https://t.me/ugslab"
+              href="https://t.me/ugslabstore_bot"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors"
@@ -143,7 +143,7 @@ export default function Header() {
               ))}
             </div>
             <a
-              href="https://t.me/ugslab"
+              href="https://t.me/ugslabstore_bot"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-lg w-full justify-center"

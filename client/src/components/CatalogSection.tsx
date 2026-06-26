@@ -203,7 +203,7 @@ export default function CatalogSection({ externalSearch }: CatalogSectionProps) 
               : "Не нашли нужную молекулу? Напишите — подберём или привезём под заказ."}
           </p>
           <a
-            href="https://t.me/ugslab"
+            href="https://t.me/ugslabstore_bot"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium border border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors"

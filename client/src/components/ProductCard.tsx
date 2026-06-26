@@ -96,7 +96,7 @@ export default function ProductCard({ product, index, lang }: ProductCardProps) 
       {/* Actions */}
       <div className="flex gap-2 mt-auto">
         <a
-          href="https://t.me/ugslab"
+          href="https://t.me/ugslabstore_bot"
           target="_blank"
           rel="noopener noreferrer"
           className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
@@ -105,7 +105,7 @@ export default function ProductCard({ product, index, lang }: ProductCardProps) 
           {requestText}
         </a>
         <a
-          href="https://t.me/ugslab"
+          href="https://t.me/ugslabstore_bot"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center px-3 py-2 text-xs font-medium border border-gray-200 text-gray-500 rounded-lg hover:border-indigo-300 hover:text-indigo-600 transition-colors"

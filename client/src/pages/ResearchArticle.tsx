@@ -124,7 +124,7 @@ export default function ResearchArticle() {
               </p>
             </div>
             <a
-              href="https://t.me/ugslab"
+              href="https://t.me/ugslabstore_bot"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-5 py-2.5 text-sm font-medium bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
