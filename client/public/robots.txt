@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /partners
+
+Sitemap: https://ugslabpept-e8adgwpk.manus.space/sitemap.xml

@@ -3,6 +3,8 @@ import { getArticleBySlug } from "@/lib/articles";
 import { ArrowLeft, Send } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 import { useEffect } from "react";
+import { useSEO } from "@/hooks/useSEO";
+import { articleSEO } from "@/lib/seo";
 
 // Simple markdown to HTML renderer
 function renderMarkdown(md: string): string {
@@ -47,6 +49,18 @@ export default function ResearchArticle() {
   const params = useParams<{ slug: string }>();
   const { lang } = useLang();
   const article = getArticleBySlug(params.slug || "");
+  const slug = params.slug || "";
+  const seoData = articleSEO[slug];
+
+  useSEO({
+    title: seoData?.title || (article ? `${article.moleculeName} — обзор исследований | UGS LAB` : "UGS LAB"),
+    description:
+      seoData?.description ||
+      (article
+        ? `Научный обзор ${article.moleculeName}: механизм действия, результаты исследований, ссылки на PubMed.`
+        : "Каталог исследовательских пептидов UGS LAB."),
+    canonical: `/research/${slug}`,
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);
