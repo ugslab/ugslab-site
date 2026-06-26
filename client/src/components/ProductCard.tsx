@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
-import { Send, Thermometer, FlaskConical } from "lucide-react";
+import { Send, Thermometer, FlaskConical, ArrowRight } from "lucide-react";
+import { Link } from "wouter";
 import type { Product } from "@/lib/products";
 import type { Lang } from "@/lib/i18n";
+import { getKeyEffects, getArticleSlug } from "@/lib/articles";
 
 interface ProductCardProps {
   product: Product;
@@ -12,6 +14,8 @@ interface ProductCardProps {
 export default function ProductCard({ product, index, lang }: ProductCardProps) {
   const requestText = lang === "en" ? "Request price & availability" : "Запросить прайс и наличие";
   const coaText = lang === "en" ? "Request CoA" : "Запросить CoA";
+  const keyEffects = getKeyEffects(product.name);
+  const articleSlug = getArticleSlug(product.name);
 
   return (
     <motion.div
@@ -40,12 +44,29 @@ export default function ProductCard({ product, index, lang }: ProductCardProps) 
       </div>
 
       {/* Description */}
-      <p className="text-xs text-gray-500 leading-relaxed flex-1 mb-3">
+      <p className="text-xs text-gray-500 leading-relaxed mb-3">
         {product.description}
       </p>
 
+      {/* Key Effects */}
+      {keyEffects.length > 0 && (
+        <div className="mb-3 py-2.5 px-3 bg-gray-50 rounded-lg border border-gray-50">
+          <p className="text-[10px] font-semibold text-gray-700 uppercase tracking-wide mb-1.5">
+            {lang === "en" ? "Key Effects" : "Ключевые эффекты"}
+          </p>
+          <ul className="space-y-1">
+            {keyEffects.slice(0, 4).map((effect, i) => (
+              <li key={i} className="flex items-start gap-1.5 text-[11px] text-gray-600 leading-snug">
+                <span className="w-1 h-1 rounded-full bg-indigo-400 mt-1.5 shrink-0" />
+                {effect}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {/* Research Areas */}
-      <p className="text-[10px] text-gray-400 mb-4">
+      <p className="text-[10px] text-gray-400 mb-3">
         <span className="font-medium">{lang === "en" ? "Research:" : "Исследования:"}</span> {product.researchAreas}
       </p>
 
@@ -60,6 +81,17 @@ export default function ProductCard({ product, index, lang }: ProductCardProps) 
           Research Use Only
         </span>
       </div>
+
+      {/* Article Link */}
+      {articleSlug && (
+        <Link
+          href={`/research/${articleSlug}`}
+          className="flex items-center gap-1.5 text-xs text-indigo-600 hover:text-indigo-800 font-medium mb-4 transition-colors"
+        >
+          {lang === "en" ? "Full research overview" : "Полный обзор исследований"}
+          <ArrowRight className="w-3.5 h-3.5" />
+        </Link>
+      )}
 
       {/* Actions */}
       <div className="flex gap-2 mt-auto">
